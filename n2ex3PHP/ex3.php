@@ -7,7 +7,7 @@
     <style>
       label {
         display: inline-block;
-        width: 100px;
+        width: 110px;
         text-align: left;
         font-weight: bold;
       }
@@ -38,32 +38,33 @@ Being therefore the total, 4.
 -->
 
 
-
-   
 <h2>Candy shop</h2>
     
-    <h3>Enter the amount of yours purchases:</h3>
+    <h3>Amount of yours purchase:</h3>
     <form action ="" method ="POST">
        
-        <label>Chocolate:</label><input type="number" name="choc" value="" ><br />
-        <label>Chewing gum:</label><input type="number" name="chew" value="" ><br />
-        <label>Caramel:</label><input type="number" name="caram" value="" ><br />
+        <label>Chocolate:</label><input type="number" name="choc" value="1" ><br />
+        <label>Chewing gum:</label><input type="number" name="chew" value="1" ><br />
+        <label>Caramel:</label><input type="number" name="caram" value="1" ><br />
 
         <input type="submit" value="Submit" name="submit">
 
         </form>
 
-
-
 <?php
-            $eur;
-            $cents;
-
-            function total_price ($type, $amount) {
+            
+            function total_price ($amount, $type = 1) {
+             
               $price = 1;
-
-
               
+              if ($type == 3) {
+                $price = 1.5;
+              }
+
+              if ($type == 2) {
+                $price = .5;
+              }
+
               $total = $amount * $price;
 
               return $total;
@@ -71,16 +72,23 @@ Being therefore the total, 4.
 
 
 
-            
         
             if (isset($_POST['submit'])) {
                 $choc = $_POST['choc'];
                 $chew = $_POST['chew'];
                 $caram = $_POST['caram'];
                
-                $price = call_price($call);
-                $cents = $price % 100;
-                $eur = ($price - $cents) / 100;
+                $tch = total_price($choc);
+                $tcw = total_price($chew, 2);
+                $tcr = total_price($caram, 3);
+
+                $total = $tch + $tcw + $tcr;
+
+                echo "Total price of chocolate: " . $tch . "<br \>";
+                echo "Total price of chewing gum: " . $tcw . "<br \>";
+                echo "Total price of caramel: " . $tcr . "<br \>";
+                echo "Total: " . $total; 
+
 
             }
 
