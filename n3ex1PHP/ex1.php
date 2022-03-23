@@ -25,18 +25,6 @@ Eratosthenes sieve is an algorithm designed to find prime numbers within a given
  Based on the attached link information, it implements the Eratosthenes screen within a 
  function, so that we can invoke the function for a specific number.
 
- Вход: натуральное число n
-Выход: все простые числа от 2 до n.
-
-Пусть A — булевый массив, индексируемый числами от 2 до n, 
-изначально заполненный значениями true.
-
- для i := 2, 3, 4, ..., пока i**2 ≤ n:
-  если A[i] = true:
-    для j := i**2, i**2 + i, i**2 + 2i, ..., пока j ≤ n:
-      A[j] := false
-
- возвращаем: все числа i, для которых A[i] = true.
 
 -->
 
