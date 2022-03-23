@@ -25,6 +25,19 @@ Eratosthenes sieve is an algorithm designed to find prime numbers within a given
  Based on the attached link information, it implements the Eratosthenes screen within a 
  function, so that we can invoke the function for a specific number.
 
+ Вход: натуральное число n
+Выход: все простые числа от 2 до n.
+
+Пусть A — булевый массив, индексируемый числами от 2 до n, 
+изначально заполненный значениями true.
+
+ для i := 2, 3, 4, ..., пока i**2 ≤ n:
+  если A[i] = true:
+    для j := i**2, i**2 + i, i**2 + 2i, ..., пока j ≤ n:
+      A[j] := false
+
+ возвращаем: все числа i, для которых A[i] = true.
+
 -->
 
 
@@ -32,56 +45,51 @@ Eratosthenes sieve is an algorithm designed to find prime numbers within a given
     
     <form action ="" method ="POST">
        
-        <label>Enter the range limit:</label><input type="number" name="limit" value="" ><br />
+        <label>Enter the range limit:</label><input type="number" name="limit" value="0" ><br />
 
         <input type="submit" value="Submit" name="submit">
 
         </form>
 
 <?php
+            
+
+
+                  
+              function ers($limit)
+              {
+                  $sieve = [];
+                  for($i = 2; $i <= $limit; $i++) {
+                      $sieve[$i - 2] = $i;
+                  } 
+              
+                  for ($i = 2; $i * $i <= $limit; $i++) { 
+
+                      if(isset($sieve[$i - 1])) {
   
-            function sieve ($limit) {
-             
-                $sqrt_limit = floor(sqrt($limit));
+                          for ($k = $i -1; $k * $i <= $limit; $k++) {
+                                     
+                              unset($sieve[$k * $i]);
+                          
+                          }   
+                      }
               
-                $S = str_repeat("1", $limit+1);
-                
-                for($i=2; $i<=$sqrt_limit; $i++){
+                  }           
+                  return $sieve;
+              }
+                  
+                      if (isset($_POST['submit'])) {
+                          $limit = $_POST['limit'];
+                          $to_print = ers($limit);
+
+                          echo "<br \>Prime numbers of range: ";
+
+                          foreach(ers($limit) as $print) {
+
+                          echo $print  . " ";
+                          }
                         
-                    if($S[$i]==="1"){
-                        
-                        for($j=$i*$i; $j<=$limit; $j+=$i){
-                           
-                            $S[$j]="0";
-                            
-                            }
-                        }
-                    }
-                 
-
-                    for ($i=2; $i < $limit; i++)
-                    
-
-                    return $S;
-            }
-
-
-
-
-
-
-        
-            if (isset($_POST['submit'])) {
-                $limit = $_POST['limit'];
-
-                $S = sieve ($limit);
-               
-
-                echo "Prime numbers of range: " . $S . "<br \>";
-              
-
-
-            }
+                      }
 
              
  ?>
